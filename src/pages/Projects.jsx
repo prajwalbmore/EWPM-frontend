@@ -40,65 +40,63 @@ const Projects = () => {
 
   const getStatusColor = (status) => {
     const colors = {
-      PLANNING: 'bg-gray-100 text-gray-800',
-      IN_PROGRESS: 'bg-blue-100 text-blue-800',
-      ON_HOLD: 'bg-yellow-100 text-yellow-800',
-      COMPLETED: 'bg-green-100 text-green-800',
-      CANCELLED: 'bg-red-100 text-red-800',
+      PLANNING: 'bg-white/10 text-white/70',
+      IN_PROGRESS: 'bg-blue-500/15 text-blue-300',
+      ON_HOLD: 'bg-yellow-500/15 text-yellow-300',
+      COMPLETED: 'bg-green-500/15 text-green-300',
+      CANCELLED: 'bg-red-500/15 text-red-300',
     };
     return colors[status] || colors.PLANNING;
   };
 
   return (
-    <div className="space-y-4 sm:space-y-6">
+    <div className="space-y-6">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-1 sm:mb-2">
-            Projects
-          </h1>
-          <p className="text-sm sm:text-base text-gray-600">Manage your projects</p>
+          <h1 className="text-3xl font-bold text-white">Projects</h1>
+          <p className="mt-1 text-sm text-white/60">Manage your projects</p>
         </div>
         {canCreateProjects && (
           <button 
             onClick={handleCreate} 
-            className="btn btn-primary flex items-center justify-center gap-2 w-full sm:w-auto"
+            className="inline-flex items-center gap-2 rounded-xl bg-primary-500 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-primary-500/20 hover:bg-primary-400"
           >
-            <Plus className="w-4 h-4 sm:w-5 sm:h-5" />
-            <span className="text-sm sm:text-base">New Project</span>
+            <Plus className="w-4 h-4" />
+            New Project
           </button>
         )}
       </div>
 
       {/* Loading State */}
       {isLoading ? (
-        <div className="card text-center py-12 sm:py-16">
-          <div className="animate-spin rounded-full h-10 w-10 sm:h-12 sm:w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
-          <p className="text-sm sm:text-base text-gray-500">Loading projects...</p>
+        <div className="rounded-2xl border border-white/10 bg-white/5 py-16 text-center backdrop-blur-xl">
+          <div className="mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-b-2 border-primary-400" />
+          <p className="text-sm text-white/60">Loading projects...</p>
         </div>
       ) : projects?.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
           {projects.map((project) => (
             <div 
               key={project._id} 
-              className="card border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+              className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl transition hover:-translate-y-1 hover:shadow-primary-500/10 p-4 sm:p-5"
             >
               <div className="flex items-start justify-between mb-3 sm:mb-4">
                 <div className="flex-1 min-w-0">
                   <Link to={`/projects/${project._id}`} className="block group">
-                    <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2 group-hover:text-primary-600 transition-colors truncate">
+                    <h3 className="text-base sm:text-lg font-semibold text-white mb-2 group-hover:text-primary-300 transition-colors truncate">
                       {project.name}
                     </h3>
                   </Link>
-                  <p className="text-xs sm:text-sm text-gray-600 line-clamp-2">{project.description || 'No description'}</p>
+                  <p className="text-xs sm:text-sm text-white/60 line-clamp-2">{project.description || 'No description'}</p>
                 </div>
               </div>
 
               <div className="flex flex-wrap items-center justify-between gap-2 mb-3 sm:mb-4">
-                <span className={`badge ${getStatusColor(project.status)} text-xs`}>
+                <span className={`rounded-full px-3 py-1 text-xs ring-1 ${getStatusColor(project.status)}`}>
                   {project.status}
                 </span>
-                <span className="text-xs sm:text-sm text-gray-500 flex items-center gap-1">
+                <span className="text-xs sm:text-sm text-white/50 flex items-center gap-1">
                   <Users className="w-3 h-3 sm:w-4 sm:h-4" />
                   {project.members?.length || 0} members
                 </span>
@@ -108,7 +106,7 @@ const Projects = () => {
                 {canEditProject(project) && (
                   <button
                     onClick={() => handleEdit(project)}
-                    className="flex-1 btn btn-secondary flex items-center justify-center gap-2 text-xs sm:text-sm py-2"
+                    className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-white/10 px-3 py-2 text-xs sm:text-sm font-semibold text-white hover:bg-white/20"
                   >
                     <Edit className="w-3 h-3 sm:w-4 sm:h-4" />
                     <span className="hidden sm:inline">Edit</span>
@@ -117,7 +115,7 @@ const Projects = () => {
                 {canDeleteProjects && (
                   <button
                     onClick={() => handleDelete(project._id)}
-                    className="btn btn-danger flex items-center justify-center gap-2 px-3 sm:px-4 py-2"
+                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-rose-500/15 px-3 sm:px-4 py-2 text-xs sm:text-sm font-semibold text-rose-300 hover:bg-rose-500/20"
                     aria-label="Delete project"
                   >
                     <Trash2 className="w-3 h-3 sm:w-4 sm:h-4" />
@@ -128,11 +126,11 @@ const Projects = () => {
           ))}
         </div>
       ) : (
-        <div className="card text-center py-12 sm:py-16 border border-gray-100">
-          <FolderKanban className="w-12 h-12 sm:w-16 sm:h-16 text-gray-400 mx-auto mb-4" />
-          <p className="text-sm sm:text-base text-gray-500 mb-4">No projects yet</p>
+        <div className="rounded-2xl border border-white/10 bg-white/5 py-16 text-center backdrop-blur-xl">
+          <FolderKanban className="w-12 h-12 sm:w-16 sm:h-16 text-white/40 mx-auto mb-4" />
+          <p className="text-sm sm:text-base text-white/60 mb-4">No projects yet</p>
           {canCreateProjects && (
-            <button onClick={handleCreate} className="btn btn-primary">
+            <button onClick={handleCreate} className="inline-flex items-center gap-2 rounded-xl bg-primary-500 px-4 py-2 text-sm font-semibold text-white hover:bg-primary-400">
               Create your first project
             </button>
           )}

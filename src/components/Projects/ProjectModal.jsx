@@ -134,20 +134,20 @@ const ProjectModal = ({ isOpen, onClose, project, onSuccess }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-3 sm:p-4">
-      <div className="bg-white rounded-lg w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl">
-        <div className="flex items-center justify-between p-4 sm:p-6 border-b sticky top-0 bg-white z-10">
-          <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900">
+    <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-3 sm:p-4">
+      <div className="w-full max-w-2xl rounded-2xl border border-white/10 bg-white/5 shadow-2xl backdrop-blur-2xl max-h-[90vh] overflow-y-auto custom-scrollbar-dark">
+        <div className="sticky top-0 z-10 flex items-center justify-between border-b border-white/10 px-6 py-4 bg-white/5">
+          <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-white">
             {project ? 'Edit Project' : 'Create Project'}
           </h2>
-          <button onClick={onClose} className="text-gray-400 hover:text-gray-600 transition-colors p-1">
+          <button onClick={onClose} className="rounded-lg p-2 text-white/60 hover:text-white">
             <X className="w-5 h-5 sm:w-6 sm:h-6" />
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-3 sm:space-y-4">
+        <form onSubmit={handleSubmit} className="p-6 space-y-4">
           <div>
-            <label className="label">
+            <label className="text-xs sm:text-sm text-white/80 mb-1 block">
               Project Name *
             </label>
             <input
@@ -156,13 +156,13 @@ const ProjectModal = ({ isOpen, onClose, project, onSuccess }) => {
               value={formData.name}
               onChange={handleChange}
               required
-              className="input text-sm"
+              className="w-full rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white placeholder:text-white/30 outline-none focus:border-primary-400/40 focus:ring-2 focus:ring-primary-500/20"
               placeholder="Enter project name"
             />
           </div>
 
           <div>
-            <label className="label">
+            <label className="text-xs sm:text-sm text-white/80 mb-1 block">
               Description
             </label>
             <textarea
@@ -170,19 +170,19 @@ const ProjectModal = ({ isOpen, onClose, project, onSuccess }) => {
               value={formData.description}
               onChange={handleChange}
               rows={4}
-              className="input text-sm"
+              className="w-full rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white placeholder:text-white/30 outline-none focus:border-primary-400/40 focus:ring-2 focus:ring-primary-500/20"
               placeholder="Enter project description"
             />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             <div>
-              <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">Status</label>
+              <label className="block text-xs sm:text-sm font-medium text-white/80 mb-1 sm:mb-2">Status</label>
               <select 
                 name="status" 
                 value={formData.status} 
                 onChange={handleChange} 
-                className="input text-sm"
+                className="w-full rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white outline-none focus:border-primary-400/40 focus:ring-2 focus:ring-primary-500/20"
                 disabled={isProjectManager && project && project.managerId?._id !== user?.id && project.ownerId?._id !== user?.id}
               >
                 <option value="PLANNING">Planning</option>
@@ -194,8 +194,8 @@ const ProjectModal = ({ isOpen, onClose, project, onSuccess }) => {
             </div>
 
             <div>
-              <label className="label">Priority</label>
-              <select name="priority" value={formData.priority} onChange={handleChange} className="input text-sm">
+              <label className="text-xs sm:text-sm text-white/80 mb-1 block">Priority</label>
+              <select name="priority" value={formData.priority} onChange={handleChange} className="w-full rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white outline-none focus:border-primary-400/40 focus:ring-2 focus:ring-primary-500/20">
                 <option value="LOW">Low</option>
                 <option value="MEDIUM">Medium</option>
                 <option value="HIGH">High</option>
@@ -206,31 +206,31 @@ const ProjectModal = ({ isOpen, onClose, project, onSuccess }) => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             <div>
-              <label className="label">Start Date</label>
+              <label className="text-xs sm:text-sm text-white/80 mb-1 block">Start Date</label>
               <input
                 type="date"
                 name="startDate"
                 value={formData.startDate}
                 onChange={handleChange}
-                className="input text-sm"
+                className="w-full rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white outline-none focus:border-primary-400/40 focus:ring-2 focus:ring-primary-500/20"
               />
             </div>
 
             <div>
-              <label className="label">End Date</label>
+              <label className="text-xs sm:text-sm text-white/80 mb-1 block">End Date</label>
               <input
                 type="date"
                 name="endDate"
                 value={formData.endDate}
                 onChange={handleChange}
-                className="input text-sm"
+                className="w-full rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white outline-none focus:border-primary-400/40 focus:ring-2 focus:ring-primary-500/20"
               />
             </div>
           </div>
 
           {/* Project Members */}
           <div>
-            <label className="label">
+            <label className="text-xs sm:text-sm text-white/80 mb-1 block">
               Project Members
             </label>
             <div className="space-y-3">
@@ -239,7 +239,7 @@ const ProjectModal = ({ isOpen, onClose, project, onSuccess }) => {
                 <select
                   value={selectedMemberId}
                   onChange={(e) => setSelectedMemberId(e.target.value)}
-                  className="input flex-1 text-sm"
+                  className="flex-1 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white outline-none focus:border-primary-400/40 focus:ring-2 focus:ring-primary-500/20"
                   disabled={isLoadingUsers}
                 >
                   <option value="">Select a user...</option>
@@ -254,7 +254,7 @@ const ProjectModal = ({ isOpen, onClose, project, onSuccess }) => {
                 <select
                   value={selectedMemberRole}
                   onChange={(e) => setSelectedMemberRole(e.target.value)}
-                  className="input text-sm sm:w-[150px]"
+                  className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white outline-none focus:border-primary-400/40 focus:ring-2 focus:ring-primary-500/20 sm:w-[150px]"
                 >
                   <option value="MEMBER">Member</option>
                   <option value="LEAD">Lead</option>
@@ -264,7 +264,7 @@ const ProjectModal = ({ isOpen, onClose, project, onSuccess }) => {
                   type="button"
                   onClick={handleAddMember}
                   disabled={!selectedMemberId}
-                  className="btn btn-secondary flex items-center justify-center gap-2 text-sm py-2"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-white/70 hover:bg-white/10 hover:text-white disabled:opacity-50"
                 >
                   <UserPlus className="w-4 h-4" />
                   <span className="hidden sm:inline">Add</span>
@@ -273,19 +273,19 @@ const ProjectModal = ({ isOpen, onClose, project, onSuccess }) => {
 
               {/* Members List */}
               {formData.members.length > 0 && (
-                <div className="border border-gray-200 rounded-lg p-3 space-y-2">
+                <div className="border border-white/10 rounded-xl p-3 space-y-2 bg-white/5">
                   {formData.members.map((member, index) => (
                     <div
                       key={index}
-                      className="flex items-center justify-between p-2 bg-gray-50 rounded hover:bg-gray-100"
+                      className="flex items-center justify-between p-2 bg-white/5 rounded-xl border border-white/10 hover:bg-white/10"
                     >
                       <div className="flex items-center gap-3 flex-1">
-                        <div className="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center">
-                          <span className="text-primary-600 text-sm font-medium">
+                        <div className="w-8 h-8 bg-primary-500/15 rounded-full flex items-center justify-center ring-1 ring-primary-500/30">
+                          <span className="text-primary-300 text-sm font-medium">
                             {getMemberName(member.userId).charAt(0).toUpperCase()}
                           </span>
                         </div>
-                        <span className="font-medium text-gray-900">
+                        <span className="font-medium text-white">
                           {getMemberName(member.userId)}
                         </span>
                       </div>
@@ -293,7 +293,7 @@ const ProjectModal = ({ isOpen, onClose, project, onSuccess }) => {
                         <select
                           value={member.role}
                           onChange={(e) => handleMemberRoleChange(member.userId, e.target.value)}
-                          className="input text-sm"
+                          className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white outline-none focus:border-primary-400/40 focus:ring-2 focus:ring-primary-500/20"
                           style={{ width: '120px' }}
                         >
                           <option value="MEMBER">Member</option>
@@ -303,7 +303,7 @@ const ProjectModal = ({ isOpen, onClose, project, onSuccess }) => {
                         <button
                           type="button"
                           onClick={() => handleRemoveMember(member.userId)}
-                          className="text-red-600 hover:text-red-800 p-1"
+                          className="text-rose-300 hover:text-rose-200 p-1"
                           title="Remove member"
                         >
                           <X className="w-4 h-4" />
@@ -316,11 +316,11 @@ const ProjectModal = ({ isOpen, onClose, project, onSuccess }) => {
             </div>
           </div>
 
-          <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-2 sm:gap-4 pt-4 border-t">
-            <button type="button" onClick={onClose} className="btn btn-secondary text-sm sm:text-base py-2.5 sm:py-2">
+          <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-2 sm:gap-4 pt-4 border-t border-white/10">
+            <button type="button" onClick={onClose} className="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-white/70 hover:bg-white/10 hover:text-white">
               Cancel
             </button>
-            <button type="submit" className="btn btn-primary text-sm sm:text-base py-2.5 sm:py-2">
+            <button type="submit" className="rounded-xl bg-primary-500 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-primary-500/20 hover:bg-primary-400">
               {project ? 'Update' : 'Create'} Project
             </button>
           </div>

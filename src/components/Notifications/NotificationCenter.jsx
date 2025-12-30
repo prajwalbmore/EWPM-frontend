@@ -242,29 +242,29 @@ const NotificationCenter = () => {
   const getNotificationIcon = (type) => {
     switch (type) {
       case 'TASK_ASSIGNED':
-        return <UserPlus className="w-5 h-5 text-blue-600" />;
+        return <UserPlus className="w-5 h-5 text-blue-300" />;
       case 'TASK_STATUS_CHANGED':
-        return <CheckCircle2 className="w-5 h-5 text-green-600" />;
+        return <CheckCircle2 className="w-5 h-5 text-green-300" />;
       case 'PROJECT_MEMBER_ADDED':
-        return <Users className="w-5 h-5 text-purple-600" />;
+        return <Users className="w-5 h-5 text-purple-300" />;
       case 'PERMISSION_UPDATED':
       case 'PERMISSION_RESET':
-        return <Shield className="w-5 h-5 text-orange-600" />;
+        return <Shield className="w-5 h-5 text-orange-300" />;
       default:
-        return <AlertCircle className="w-5 h-5 text-gray-600" />;
+        return <AlertCircle className="w-5 h-5 text-white/60" />;
     }
   };
 
   const getNotificationColor = (type) => {
     switch (type) {
       case 'TASK_ASSIGNED':
-        return 'bg-blue-50 border-blue-200';
+        return 'bg-blue-500/10 border-blue-500/20';
       case 'TASK_STATUS_CHANGED':
-        return 'bg-green-50 border-green-200';
+        return 'bg-green-500/10 border-green-500/20';
       case 'PROJECT_MEMBER_ADDED':
-        return 'bg-purple-50 border-purple-200';
+        return 'bg-purple-500/10 border-purple-500/20';
       default:
-        return 'bg-gray-50 border-gray-200';
+        return 'bg-white/5 border-white/10';
     }
   };
 
@@ -292,7 +292,7 @@ const NotificationCenter = () => {
           setIsOpen(!isOpen);
           checkSocketStatus(); // Debug on click
         }}
-        className="relative p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+        className="relative p-2 text-white/70 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
         title="Notifications"
       >
         <Bell className="w-6 h-6" />
@@ -309,16 +309,16 @@ const NotificationCenter = () => {
             className="fixed inset-0 z-40"
             onClick={() => setIsOpen(false)}
           />
-          <div className="absolute right-0 mt-2 w-[calc(100vw-2rem)] sm:w-96 bg-white rounded-lg shadow-xl border border-gray-200 z-50 max-h-[600px] overflow-hidden flex flex-col">
-            <div className="flex items-center justify-between p-3 sm:p-4 border-b border-gray-200">
-              <h3 className="text-base sm:text-lg font-semibold text-gray-900">
+          <div className="absolute right-0 mt-2 w-[calc(100vw-2rem)] sm:w-96 rounded-2xl border border-white/10 bg-slate-950 backdrop-blur-xl shadow-2xl z-50 max-h-[600px] overflow-hidden flex flex-col">
+            <div className="flex items-center justify-between p-3 sm:p-4 border-b border-white/10">
+              <h3 className="text-base sm:text-lg font-semibold text-white">
                 Notifications
               </h3>
               <div className="flex items-center gap-2">
                 {unreadCount > 0 && (
                   <button
                     onClick={markAllAsRead}
-                    className="text-xs sm:text-sm text-primary-600 hover:text-primary-700"
+                    className="text-xs sm:text-sm text-primary-300 hover:text-primary-200"
                   >
                     <span className="hidden sm:inline">Mark all read</span>
                     <span className="sm:hidden">Read all</span>
@@ -326,7 +326,7 @@ const NotificationCenter = () => {
                 )}
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="text-gray-400 hover:text-gray-600 transition-colors p-1"
+                  className="text-white/60 hover:text-white transition-colors p-1"
                   aria-label="Close notifications"
                 >
                   <X className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -334,28 +334,28 @@ const NotificationCenter = () => {
               </div>
             </div>
 
-            <div className="overflow-y-auto flex-1">
+            <div className="overflow-y-auto flex-1 custom-scrollbar-dark">
               {notifications.length === 0 ? (
-                <div className="p-8 text-center text-gray-500">
-                  <Bell className="w-12 h-12 mx-auto mb-2 text-gray-300" />
+                <div className="p-8 text-center text-white/60">
+                  <Bell className="w-12 h-12 mx-auto mb-2 text-white/40" />
                   <p>No notifications</p>
                 </div>
               ) : (
-                <div className="divide-y divide-gray-200">
+                <div className="divide-y divide-white/10">
                   {notifications.map((notification) => (
                     <div
                       key={notification.id}
-                      className={`p-3 sm:p-4 hover:bg-gray-50 transition-colors ${
+                      className={`p-3 sm:p-4 hover:bg-white/5 transition-colors ${
                         !notification.read ? getNotificationColor(notification.type) : ''
                       } border-l-4 ${
                         !notification.read
                           ? notification.type === 'TASK_ASSIGNED'
-                            ? 'border-blue-500'
+                            ? 'border-blue-500/50'
                             : notification.type === 'TASK_STATUS_CHANGED'
-                            ? 'border-green-500'
+                            ? 'border-green-500/50'
                             : notification.type === 'PROJECT_MEMBER_ADDED'
-                            ? 'border-purple-500'
-                            : 'border-gray-500'
+                            ? 'border-purple-500/50'
+                            : 'border-white/20'
                           : 'border-transparent'
                       }`}
                     >
@@ -366,13 +366,13 @@ const NotificationCenter = () => {
                         <div className="flex-1 min-w-0">
                           <div className="flex items-start justify-between gap-2">
                             <div className="flex-1 min-w-0">
-                              <p className="text-xs sm:text-sm font-medium text-gray-900 truncate">
+                              <p className="text-xs sm:text-sm font-medium text-white truncate">
                                 {notification.title}
                               </p>
-                              <p className="text-xs sm:text-sm text-gray-600 mt-1 line-clamp-2">
+                              <p className="text-xs sm:text-sm text-white/60 mt-1 line-clamp-2">
                                 {notification.message}
                               </p>
-                              <p className="text-xs text-gray-500 mt-1">
+                              <p className="text-xs text-white/50 mt-1">
                                 {format(
                                   new Date(notification.timestamp),
                                   'MMM dd, yyyy HH:mm'
@@ -387,7 +387,7 @@ const NotificationCenter = () => {
                                       window.location.href = `/projects/${notification.projectId}`;
                                     }
                                   }}
-                                  className="text-xs sm:text-sm text-primary-600 hover:text-primary-700 font-medium mt-2"
+                                  className="text-xs sm:text-sm text-primary-300 hover:text-primary-200 font-medium mt-2"
                                 >
                                   {notification.taskId ? 'View Task →' : 'View Project →'}
                                 </button>
@@ -397,7 +397,7 @@ const NotificationCenter = () => {
                               {!notification.read && (
                                 <button
                                   onClick={() => markAsRead(notification.id)}
-                                  className="text-xs text-primary-600 hover:text-primary-700"
+                                  className="text-xs text-primary-300 hover:text-primary-200"
                                   title="Mark as read"
                                 >
                                   Mark read
@@ -405,7 +405,7 @@ const NotificationCenter = () => {
                               )}
                               <button
                                 onClick={() => removeNotification(notification.id)}
-                                className="text-gray-400 hover:text-gray-600"
+                                className="text-white/40 hover:text-white/60"
                                 title="Remove"
                               >
                                 <X className="w-4 h-4" />

@@ -76,20 +76,20 @@ const TaskModal = ({ isOpen, onClose, task, projects, onSuccess }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-3 sm:p-4">
-      <div className="bg-white rounded-lg w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl">
-        <div className="flex items-center justify-between p-4 sm:p-6 border-b sticky top-0 bg-white z-10">
-          <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900">
+    <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-3 sm:p-4">
+      <div className="w-full max-w-2xl rounded-2xl border border-white/10 bg-white/5 shadow-2xl backdrop-blur-2xl max-h-[90vh] overflow-y-auto custom-scrollbar-dark">
+        <div className="sticky top-0 z-10 flex items-center justify-between border-b border-white/10 px-6 py-4 bg-white/5">
+          <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-white">
             {task ? 'Edit Task' : 'Create Task'}
           </h2>
-          <button onClick={onClose} className="text-gray-400 hover:text-gray-600 transition-colors p-1">
+          <button onClick={onClose} className="rounded-lg p-2 text-white/60 hover:text-white">
             <X className="w-5 h-5 sm:w-6 sm:h-6" />
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-3 sm:space-y-4">
+        <form onSubmit={handleSubmit} className="p-6 space-y-4">
           <div>
-            <label className="label">
+            <label className="text-xs sm:text-sm text-white/80 mb-1 block">
               Task Title *
             </label>
             <input
@@ -98,13 +98,13 @@ const TaskModal = ({ isOpen, onClose, task, projects, onSuccess }) => {
               value={formData.title}
               onChange={handleChange}
               required
-              className="input text-sm"
+              className="w-full rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white placeholder:text-white/30 outline-none focus:border-primary-400/40 focus:ring-2 focus:ring-primary-500/20"
               placeholder="Enter task title"
             />
           </div>
 
           <div>
-            <label className="label">
+            <label className="text-xs sm:text-sm text-white/80 mb-1 block">
               Description
             </label>
             <textarea
@@ -112,16 +112,16 @@ const TaskModal = ({ isOpen, onClose, task, projects, onSuccess }) => {
               value={formData.description}
               onChange={handleChange}
               rows={4}
-              className="input text-sm"
+              className="w-full rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white placeholder:text-white/30 outline-none focus:border-primary-400/40 focus:ring-2 focus:ring-primary-500/20"
               placeholder="Enter task description"
             />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             <div>
-              <label className="label">Project *</label>
+              <label className="text-xs sm:text-sm text-white/80 mb-1 block">Project *</label>
               {isEmployee && task ? (
-                <div className="input bg-gray-50 cursor-not-allowed">
+                <div className="w-full rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white/50 cursor-not-allowed">
                   {task.projectId?.name || projects?.find(p => p._id === formData.projectId)?.name || 'N/A'}
                 </div>
               ) : (
@@ -130,27 +130,27 @@ const TaskModal = ({ isOpen, onClose, task, projects, onSuccess }) => {
                   value={formData.projectId}
                   onChange={handleChange}
                   required
-                className="input text-sm"
-                disabled={isEmployee && !!task}
-              >
-                <option value="">Select project</option>
-                {projects?.map((project) => (
-                  <option key={project._id} value={project._id}>
-                    {project.name}
-                  </option>
-                ))}
+                  className="w-full rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white outline-none focus:border-primary-400/40 focus:ring-2 focus:ring-primary-500/20"
+                  disabled={isEmployee && !!task}
+                >
+                  <option value="">Select project</option>
+                  {projects?.map((project) => (
+                    <option key={project._id} value={project._id}>
+                      {project.name}
+                    </option>
+                  ))}
                 </select>
               )}
               {isEmployee && task && (
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="text-xs text-white/50 mt-1">
                   You cannot change the project
                 </p>
               )}
             </div>
 
             <div>
-              <label className="label">Type</label>
-              <select name="type" value={formData.type} onChange={handleChange} className="input text-sm">
+              <label className="text-xs sm:text-sm text-white/80 mb-1 block">Type</label>
+              <select name="type" value={formData.type} onChange={handleChange} className="w-full rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white outline-none focus:border-primary-400/40 focus:ring-2 focus:ring-primary-500/20">
                 <option value="EPIC">Epic</option>
                 <option value="STORY">Story</option>
                 <option value="SUBTASK">Subtask</option>
@@ -160,8 +160,8 @@ const TaskModal = ({ isOpen, onClose, task, projects, onSuccess }) => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             <div>
-              <label className="label">Status</label>
-              <select name="status" value={formData.status} onChange={handleChange} className="input text-sm">
+              <label className="text-xs sm:text-sm text-white/80 mb-1 block">Status</label>
+              <select name="status" value={formData.status} onChange={handleChange} className="w-full rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white outline-none focus:border-primary-400/40 focus:ring-2 focus:ring-primary-500/20">
                 <option value="TODO">Todo</option>
                 <option value="IN_PROGRESS">In Progress</option>
                 <option value="IN_REVIEW">In Review</option>
@@ -171,8 +171,8 @@ const TaskModal = ({ isOpen, onClose, task, projects, onSuccess }) => {
             </div>
 
             <div>
-              <label className="label">Priority</label>
-              <select name="priority" value={formData.priority} onChange={handleChange} className="input text-sm">
+              <label className="text-xs sm:text-sm text-white/80 mb-1 block">Priority</label>
+              <select name="priority" value={formData.priority} onChange={handleChange} className="w-full rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white outline-none focus:border-primary-400/40 focus:ring-2 focus:ring-primary-500/20">
                 <option value="LOW">Low</option>
                 <option value="MEDIUM">Medium</option>
                 <option value="HIGH">High</option>
@@ -183,12 +183,12 @@ const TaskModal = ({ isOpen, onClose, task, projects, onSuccess }) => {
 
           {canAssignTasks && (
             <div>
-              <label className="label">Assign To</label>
+              <label className="text-xs sm:text-sm text-white/80 mb-1 block">Assign To</label>
               <select
                 name="assigneeId"
                 value={formData.assigneeId}
                 onChange={handleChange}
-                className="input text-sm"
+                className="w-full rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white outline-none focus:border-primary-400/40 focus:ring-2 focus:ring-primary-500/20"
               >
                 <option value="">Unassigned</option>
                 {users?.map((user) => (
@@ -197,32 +197,32 @@ const TaskModal = ({ isOpen, onClose, task, projects, onSuccess }) => {
                   </option>
                 ))}
               </select>
-              <p className="text-xs text-gray-500 mt-1">
+              <p className="text-xs text-white/50 mt-1">
                 Select a user to assign this task to
               </p>
             </div>
           )}
           {isEmployee && task && (
             <div>
-              <label className="label">Assigned To</label>
-              <div className="input bg-gray-50 text-sm">
+              <label className="text-xs sm:text-sm text-white/80 mb-1 block">Assigned To</label>
+              <div className="w-full rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white/50">
                 {task.assigneeId ? (
                   `${task.assigneeId.firstName} ${task.assigneeId.lastName}`
                 ) : (
                   'Unassigned'
                 )}
               </div>
-              <p className="text-xs text-gray-500 mt-1">
+              <p className="text-xs text-white/50 mt-1">
                 You cannot reassign tasks
               </p>
             </div>
           )}
 
-          <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-2 sm:gap-4 pt-4 border-t">
-            <button type="button" onClick={onClose} className="btn btn-secondary text-sm sm:text-base py-2.5 sm:py-2">
+          <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-2 sm:gap-4 pt-4 border-t border-white/10">
+            <button type="button" onClick={onClose} className="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-white/70 hover:bg-white/10 hover:text-white">
               Cancel
             </button>
-            <button type="submit" className="btn btn-primary text-sm sm:text-base py-2.5 sm:py-2">
+            <button type="submit" className="rounded-xl bg-primary-500 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-primary-500/20 hover:bg-primary-400">
               {task ? 'Update' : 'Create'} Task
             </button>
           </div>

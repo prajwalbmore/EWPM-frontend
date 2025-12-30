@@ -9,6 +9,7 @@ import Layout from "./components/Layout/Layout";
 import SocketInitializer from "./components/SocketInitializer";
 import PermissionUpdateListener from "./components/PermissionUpdateListener";
 import Login from "./pages/Login";
+import ResetPassword from "./pages/ResetPassword";
 import Dashboard from "./pages/Dashboard";
 import Projects from "./pages/Projects";
 import ProjectDetails from "./pages/ProjectDetails";
@@ -18,6 +19,7 @@ import Users from "./pages/Users";
 import Reports from "./pages/Reports";
 import Tenants from "./pages/Tenants";
 import Permissions from "./pages/Permissions";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -27,6 +29,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
           <Route
             path="/"
             element={
@@ -37,6 +40,7 @@ function App() {
           >
             <Route index element={<Navigate to="/dashboard" replace />} />
             <Route path="dashboard" element={<Dashboard />} />
+            <Route path="profile" element={<Profile />} />
 
             {/* Tenant work routes - SUPER_ADMIN cannot access */}
             <Route

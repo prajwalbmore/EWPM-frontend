@@ -72,12 +72,12 @@ const TaskDetails = () => {
 
   const getStatusColor = (status) => {
     const colors = {
-      TODO: 'bg-gray-100 text-gray-800',
-      IN_PROGRESS: 'bg-blue-100 text-blue-800',
-      IN_REVIEW: 'bg-yellow-100 text-yellow-800',
-      DONE: 'bg-green-100 text-green-800',
-      BLOCKED: 'bg-red-100 text-red-800',
-      CANCELLED: 'bg-gray-100 text-gray-800',
+      TODO: 'bg-white/10 text-white/70',
+      IN_PROGRESS: 'bg-blue-500/15 text-blue-300',
+      IN_REVIEW: 'bg-yellow-500/15 text-yellow-300',
+      DONE: 'bg-green-500/15 text-green-300',
+      BLOCKED: 'bg-red-500/15 text-red-300',
+      CANCELLED: 'bg-white/10 text-white/70',
     };
     return colors[status] || colors.TODO;
   };
@@ -103,10 +103,10 @@ const TaskDetails = () => {
 
   const getPriorityColor = (priority) => {
     const colors = {
-      LOW: 'bg-gray-100 text-gray-800',
-      MEDIUM: 'bg-blue-100 text-blue-800',
-      HIGH: 'bg-orange-100 text-orange-800',
-      CRITICAL: 'bg-red-100 text-red-800',
+      LOW: 'bg-white/10 text-white/70',
+      MEDIUM: 'bg-blue-500/15 text-blue-300',
+      HIGH: 'bg-orange-500/15 text-orange-300',
+      CRITICAL: 'bg-red-500/15 text-red-300',
     };
     return colors[priority] || colors.MEDIUM;
   };
@@ -116,18 +116,18 @@ const TaskDetails = () => {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+        <div className="mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-b-2 border-primary-400" />
       </div>
     );
   }
 
   if (!currentTask) {
     return (
-      <div className="card text-center py-12">
-        <AlertCircle className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-        <h2 className="text-xl font-semibold text-gray-900 mb-2">Task Not Found</h2>
-        <p className="text-gray-500 mb-4">The task you're looking for doesn't exist or you don't have access to it.</p>
-        <Link to="/tasks" className="btn btn-primary">
+      <div className="rounded-2xl border border-white/10 bg-white/5 py-12 text-center backdrop-blur-xl">
+        <AlertCircle className="w-16 h-16 text-white/40 mx-auto mb-4" />
+        <h2 className="text-xl font-semibold text-white mb-2">Task Not Found</h2>
+        <p className="text-white/60 mb-4">The task you're looking for doesn't exist or you don't have access to it.</p>
+        <Link to="/tasks" className="inline-flex items-center gap-2 rounded-xl bg-primary-500 px-4 py-2 text-sm font-semibold text-white hover:bg-primary-400">
           Back to Tasks
         </Link>
       </div>
@@ -135,22 +135,22 @@ const TaskDetails = () => {
   }
 
   return (
-    <div className="space-y-4 sm:space-y-6">
+    <div className="space-y-6">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
         <div className="flex items-center gap-2 sm:gap-4 min-w-0 flex-1">
-          <Link to="/tasks" className="btn btn-secondary px-3 py-2 flex-shrink-0">
+          <Link to="/tasks" className="inline-flex items-center justify-center rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-white/70 hover:bg-white/10 hover:text-white flex-shrink-0">
             <ArrowLeft className="w-4 h-4" />
           </Link>
           <div className="min-w-0 flex-1">
-            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 truncate">
+            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white truncate">
               {currentTask.title}
             </h1>
             <div className="flex items-center gap-2 mt-1">
               {currentTask.projectId && (
                 <Link
                   to={`/projects/${currentTask.projectId._id || currentTask.projectId}`}
-                  className="text-primary-600 hover:text-primary-700 text-xs sm:text-sm font-medium truncate"
+                  className="text-primary-300 hover:text-primary-200 text-xs sm:text-sm font-medium truncate"
                 >
                   {currentTask.projectId.name || 'Project'}
                 </Link>
@@ -160,15 +160,15 @@ const TaskDetails = () => {
         </div>
         <div className="flex items-center gap-2 flex-shrink-0">
           {canEditTask(currentTask) && (
-            <button onClick={handleEdit} className="btn btn-secondary text-xs sm:text-sm px-3 sm:px-4 py-2">
-              <Edit className="w-3 h-3 sm:w-4 sm:h-4 sm:mr-2" />
+            <button onClick={handleEdit} className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 sm:px-4 py-2 text-xs sm:text-sm font-semibold text-white/70 hover:bg-white/10 hover:text-white">
+              <Edit className="w-3 h-3 sm:w-4 sm:h-4" />
               <span className="hidden sm:inline">Edit</span>
             </button>
           )}
           {canDeleteTasks && (
-            <button onClick={handleDelete} className="btn btn-danger text-xs sm:text-sm px-3 sm:px-4 py-2">
-              <Trash2 className="w-4 h-4 mr-2" />
-              Delete
+            <button onClick={handleDelete} className="inline-flex items-center gap-2 rounded-xl bg-rose-500/15 px-3 sm:px-4 py-2 text-xs sm:text-sm font-semibold text-rose-300 hover:bg-rose-500/20">
+              <Trash2 className="w-4 h-4" />
+              <span className="hidden sm:inline">Delete</span>
             </button>
           )}
         </div>
@@ -176,15 +176,15 @@ const TaskDetails = () => {
 
       {/* Status and Priority */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="card">
+        <div className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-xl">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600 mb-1">Status</p>
+              <p className="text-sm text-white/60 mb-1">Status</p>
               {canEditTask(currentTask) ? (
                 <select
                   value={currentTask.status}
                   onChange={(e) => handleStatusChange(e.target.value)}
-                  className="input"
+                  className="w-full rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white outline-none focus:border-primary-400/40 focus:ring-2 focus:ring-primary-500/20"
                 >
                   {statusOptions.map((status) => (
                     <option key={status} value={status}>
@@ -195,7 +195,7 @@ const TaskDetails = () => {
               ) : (
                 <div className="flex items-center gap-2">
                   {getStatusIcon(currentTask.status)}
-                  <span className={`badge ${getStatusColor(currentTask.status)}`}>
+                  <span className={`rounded-full px-3 py-1 text-xs ring-1 ${getStatusColor(currentTask.status)}`}>
                     {currentTask.status}
                   </span>
                 </div>
@@ -203,21 +203,21 @@ const TaskDetails = () => {
             </div>
           </div>
         </div>
-        <div className="card">
+        <div className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-xl">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600 mb-1">Priority</p>
-              <span className={`badge ${getPriorityColor(currentTask.priority)}`}>
+              <p className="text-sm text-white/60 mb-1">Priority</p>
+              <span className={`rounded-full px-3 py-1 text-xs ring-1 ${getPriorityColor(currentTask.priority)}`}>
                 {currentTask.priority}
               </span>
             </div>
           </div>
         </div>
-        <div className="card">
+        <div className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-xl">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600 mb-1">Type</p>
-              <span className="badge bg-gray-100 text-gray-800">{currentTask.type || 'STORY'}</span>
+              <p className="text-sm text-white/60 mb-1">Type</p>
+              <span className="rounded-full px-3 py-1 text-xs ring-1 bg-white/10 text-white/70 ring-white/20">{currentTask.type || 'STORY'}</span>
             </div>
           </div>
         </div>
@@ -228,16 +228,16 @@ const TaskDetails = () => {
         {/* Left Column - Main Info */}
         <div className="lg:col-span-2 space-y-6">
           {/* Description */}
-          <div className="card">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">Description</h2>
-            <p className="text-gray-700 whitespace-pre-wrap">
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
+            <h2 className="text-xl font-semibold text-white mb-4">Description</h2>
+            <p className="text-white/70 whitespace-pre-wrap">
               {currentTask.description || 'No description provided.'}
             </p>
           </div>
 
           {/* Comments */}
-          <div className="card">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
+            <h2 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
               <MessageSquare className="w-5 h-5" />
               Comments ({currentTask.comments?.length || 0})
             </h2>
@@ -249,10 +249,10 @@ const TaskDetails = () => {
                   value={comment}
                   onChange={(e) => setComment(e.target.value)}
                   placeholder="Add a comment..."
-                  className="input flex-1"
+                  className="flex-1 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white placeholder:text-white/30 outline-none focus:border-primary-400/40 focus:ring-2 focus:ring-primary-500/20"
                   rows={3}
                 />
-                <button type="submit" className="btn btn-primary self-end">
+                <button type="submit" className="inline-flex items-center justify-center rounded-xl bg-primary-500 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-primary-500/20 hover:bg-primary-400 self-end">
                   <Send className="w-4 h-4" />
                 </button>
               </div>
@@ -262,28 +262,28 @@ const TaskDetails = () => {
             {currentTask.comments && currentTask.comments.length > 0 ? (
               <div className="space-y-4">
                 {currentTask.comments.map((comment, index) => (
-                  <div key={index} className="p-4 bg-gray-50 rounded-lg">
+                  <div key={index} className="p-4 bg-white/5 rounded-xl border border-white/10">
                     <div className="flex items-start justify-between mb-2">
                       <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center">
-                          <User className="w-4 h-4 text-primary-600" />
+                        <div className="w-8 h-8 bg-primary-500/15 rounded-full flex items-center justify-center ring-1 ring-primary-500/30">
+                          <User className="w-4 h-4 text-primary-300" />
                         </div>
                         <div>
-                          <p className="font-medium text-gray-900">
+                          <p className="font-medium text-white">
                             {comment.userId?.firstName} {comment.userId?.lastName}
                           </p>
-                          <p className="text-xs text-gray-500">
+                          <p className="text-xs text-white/50">
                             {format(new Date(comment.createdAt), 'MMM dd, yyyy HH:mm')}
                           </p>
                         </div>
                       </div>
                     </div>
-                    <p className="text-gray-700 mt-2">{comment.content}</p>
+                    <p className="text-white/70 mt-2">{comment.content}</p>
                   </div>
                 ))}
               </div>
             ) : (
-              <p className="text-gray-500 text-center py-8">No comments yet</p>
+              <p className="text-white/60 text-center py-8">No comments yet</p>
             )}
           </div>
         </div>
@@ -291,27 +291,27 @@ const TaskDetails = () => {
         {/* Right Column - Sidebar */}
         <div className="space-y-6">
           {/* Task Info */}
-          <div className="card">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">Task Information</h2>
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
+            <h2 className="text-xl font-semibold text-white mb-4">Task Information</h2>
             <div className="space-y-4">
               {currentTask.assigneeId && (
                 <div className="flex items-start gap-3">
-                  <User className="w-5 h-5 text-gray-400 mt-0.5" />
+                  <User className="w-5 h-5 text-white/40 mt-0.5" />
                   <div>
-                    <p className="text-sm text-gray-600">Assigned To</p>
-                    <p className="font-medium text-gray-900">
+                    <p className="text-sm text-white/60">Assigned To</p>
+                    <p className="font-medium text-white">
                       {currentTask.assigneeId.firstName} {currentTask.assigneeId.lastName}
                     </p>
-                    <p className="text-xs text-gray-500">{currentTask.assigneeId.email}</p>
+                    <p className="text-xs text-white/50">{currentTask.assigneeId.email}</p>
                   </div>
                 </div>
               )}
               {currentTask.reporterId && (
                 <div className="flex items-start gap-3">
-                  <User className="w-5 h-5 text-gray-400 mt-0.5" />
+                  <User className="w-5 h-5 text-white/40 mt-0.5" />
                   <div>
-                    <p className="text-sm text-gray-600">Reporter</p>
-                    <p className="font-medium text-gray-900">
+                    <p className="text-sm text-white/60">Reporter</p>
+                    <p className="font-medium text-white">
                       {currentTask.reporterId.firstName} {currentTask.reporterId.lastName}
                     </p>
                   </div>
@@ -319,10 +319,10 @@ const TaskDetails = () => {
               )}
               {currentTask.dueDate && (
                 <div className="flex items-start gap-3">
-                  <Calendar className="w-5 h-5 text-gray-400 mt-0.5" />
+                  <Calendar className="w-5 h-5 text-white/40 mt-0.5" />
                   <div>
-                    <p className="text-sm text-gray-600">Due Date</p>
-                    <p className="font-medium text-gray-900">
+                    <p className="text-sm text-white/60">Due Date</p>
+                    <p className="font-medium text-white">
                       {format(new Date(currentTask.dueDate), 'MMM dd, yyyy')}
                     </p>
                   </div>
@@ -330,12 +330,12 @@ const TaskDetails = () => {
               )}
               {currentTask.estimatedHours && (
                 <div className="flex items-start gap-3">
-                  <Clock className="w-5 h-5 text-gray-400 mt-0.5" />
+                  <Clock className="w-5 h-5 text-white/40 mt-0.5" />
                   <div>
-                    <p className="text-sm text-gray-600">Estimated Hours</p>
-                    <p className="font-medium text-gray-900">{currentTask.estimatedHours}h</p>
+                    <p className="text-sm text-white/60">Estimated Hours</p>
+                    <p className="font-medium text-white">{currentTask.estimatedHours}h</p>
                     {currentTask.actualHours !== undefined && (
-                      <p className="text-xs text-gray-500 mt-1">
+                      <p className="text-xs text-white/50 mt-1">
                         Actual: {currentTask.actualHours}h
                       </p>
                     )}
@@ -347,18 +347,18 @@ const TaskDetails = () => {
 
           {/* Project Link */}
           {currentTask.projectId && (
-            <div className="card">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4">Project</h2>
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
+              <h2 className="text-xl font-semibold text-white mb-4">Project</h2>
               <Link
                 to={`/projects/${currentTask.projectId._id || currentTask.projectId}`}
-                className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                className="flex items-center gap-3 p-3 bg-white/5 rounded-xl border border-white/10 hover:bg-white/10 transition-colors"
               >
-                <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center">
-                  <FolderKanban className="w-5 h-5 text-primary-600" />
+                <div className="w-10 h-10 bg-primary-500/15 rounded-full flex items-center justify-center ring-1 ring-primary-500/30">
+                  <FolderKanban className="w-5 h-5 text-primary-300" />
                 </div>
                 <div>
-                  <p className="font-medium text-gray-900">{currentTask.projectId.name}</p>
-                  <p className="text-xs text-gray-500">View project details</p>
+                  <p className="font-medium text-white">{currentTask.projectId.name}</p>
+                  <p className="text-xs text-white/50">View project details</p>
                 </div>
               </Link>
             </div>
@@ -366,14 +366,14 @@ const TaskDetails = () => {
 
           {/* Tags */}
           {currentTask.tags && currentTask.tags.length > 0 && (
-            <div className="card">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
+              <h2 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
                 <Tag className="w-5 h-5" />
                 Tags
               </h2>
               <div className="flex flex-wrap gap-2">
                 {currentTask.tags.map((tag, index) => (
-                  <span key={index} className="badge bg-gray-100 text-gray-800">
+                  <span key={index} className="rounded-full px-3 py-1 text-xs ring-1 bg-white/10 text-white/70 ring-white/20">
                     {tag}
                   </span>
                 ))}
@@ -382,12 +382,12 @@ const TaskDetails = () => {
           )}
 
           {/* Created Date */}
-          <div className="card">
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
             <div className="flex items-start gap-3">
-              <Calendar className="w-5 h-5 text-gray-400 mt-0.5" />
+              <Calendar className="w-5 h-5 text-white/40 mt-0.5" />
               <div>
-                <p className="text-sm text-gray-600">Created</p>
-                <p className="font-medium text-gray-900">
+                <p className="text-sm text-white/60">Created</p>
+                <p className="font-medium text-white">
                   {format(new Date(currentTask.createdAt), 'MMM dd, yyyy')}
                 </p>
               </div>

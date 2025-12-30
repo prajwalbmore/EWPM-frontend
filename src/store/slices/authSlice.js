@@ -3,6 +3,7 @@ import { authAPI } from '../../services/api/auth.api';
 // import toast from 'react-hot-toast';
 import { toast } from 'sonner';
 import { initializeSocket, disconnectSocket } from '../../services/socket';
+import { updateCurrentUserProfile } from './userSlice';
 
 // Async thunks
 export const login = createAsyncThunk(
@@ -81,6 +82,32 @@ export const getCurrentUser = createAsyncThunk(
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || 'Failed to get user');
+    }
+  }
+);
+
+export const forgotPassword = createAsyncThunk(
+  'auth/forgotPassword',
+  async (email, { rejectWithValue }) => {
+    try {
+      const response = await authAPI.forgotPassword(email);
+      return response;
+    } catch (error) {
+      const message = error.response?.data?.message || 'Failed to send reset email';
+      return rejectWithValue(message);
+    }
+  }
+);
+
+export const resetPassword = createAsyncThunk(
+  'auth/resetPassword',
+  async ({ token, newPassword }, { rejectWithValue }) => {
+    try {
+      const response = await authAPI.resetPassword(token, newPassword);
+      return response;
+    } catch (error) {
+      const message = error.response?.data?.message || 'Failed to reset password';
+      return rejectWithValue(message);
     }
   }
 );
@@ -167,6 +194,38 @@ const authSlice = createSlice({
       })
       .addCase(getCurrentUser.rejected, (state) => {
         state.isLoading = false;
+      })
+      // Update current user profile (from userSlice)
+      .addCase(updateCurrentUserProfile.fulfilled, (state, action) => {
+        state.user = action.payload;
+        // Update localStorage as well
+        localStorage.setItem('user', JSON.stringify(action.payload));
+      })
+      // Forgot password
+      .addCase(forgotPassword.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(forgotPassword.fulfilled, (state) => {
+        state.isLoading = false;
+        state.error = null;
+      })
+      .addCase(forgotPassword.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Reset password
+      .addCase(resetPassword.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(resetPassword.fulfilled, (state) => {
+        state.isLoading = false;
+        state.error = null;
+      })
+      .addCase(resetPassword.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
       });
   },
 });

@@ -15,10 +15,10 @@ const Reports = () => {
 
   if (!canViewReports) {
     return (
-      <div className="card text-center py-12 sm:py-16 border border-gray-100">
-        <BarChart3 className="w-12 h-12 sm:w-16 sm:h-16 text-gray-400 mx-auto mb-4" />
-        <h2 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">Access Denied</h2>
-        <p className="text-sm sm:text-base text-gray-500">You do not have permission to view reports</p>
+      <div className="rounded-2xl border border-white/10 bg-white/5 py-16 text-center backdrop-blur-xl">
+        <BarChart3 className="w-12 h-12 sm:w-16 sm:h-16 text-white/40 mx-auto mb-4" />
+        <h2 className="text-lg sm:text-xl font-semibold text-white mb-2">Access Denied</h2>
+        <p className="text-sm sm:text-base text-white/60">You do not have permission to view reports</p>
       </div>
     );
   }
@@ -87,20 +87,20 @@ const Reports = () => {
   ];
 
   return (
-    <div className="space-y-4 sm:space-y-6">
+    <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-1 sm:mb-2">
+        <h1 className="text-3xl font-bold text-white">
           Reports & Analytics
         </h1>
-        <p className="text-sm sm:text-base text-gray-600">View insights and performance metrics</p>
+        <p className="mt-1 text-sm text-white/60">View insights and performance metrics</p>
       </div>
 
       {/* Date Filters */}
-      <div className="card border border-gray-100 shadow-sm">
+      <div className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-xl">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
           <div>
-            <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
+            <label className="block text-xs sm:text-sm font-medium text-white/70 mb-1 sm:mb-2">
               Start Date
             </label>
             <input
@@ -108,11 +108,11 @@ const Reports = () => {
               name="startDate"
               value={filters.startDate}
               onChange={handleFilterChange}
-              className="input text-sm"
+              className="w-full rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white outline-none focus:border-primary-400/40 focus:ring-2 focus:ring-primary-500/20"
             />
           </div>
           <div>
-            <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
+            <label className="block text-xs sm:text-sm font-medium text-white/70 mb-1 sm:mb-2">
               End Date
             </label>
             <input
@@ -120,14 +120,14 @@ const Reports = () => {
               name="endDate"
               value={filters.endDate}
               onChange={handleFilterChange}
-              className="input text-sm"
+              className="w-full rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white outline-none focus:border-primary-400/40 focus:ring-2 focus:ring-primary-500/20"
             />
           </div>
         </div>
       </div>
 
       {/* Tabs */}
-      <div className="border-b border-gray-200 overflow-x-auto">
+      <div className="border-b border-white/10 overflow-x-auto custom-scrollbar-dark">
         <nav className="flex space-x-4 sm:space-x-8 min-w-max sm:min-w-0">
           {tabs.map((tab) => {
             const Icon = tab.icon;
@@ -137,8 +137,8 @@ const Reports = () => {
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center gap-2 py-3 sm:py-4 px-1 border-b-2 font-medium text-xs sm:text-sm transition-colors whitespace-nowrap ${
                   activeTab === tab.id
-                    ? 'border-primary-500 text-primary-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                    ? 'border-primary-500 text-primary-300'
+                    : 'border-transparent text-white/60 hover:text-white hover:border-white/30'
                 }`}
               >
                 <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -151,58 +151,58 @@ const Reports = () => {
       </div>
 
       {/* Report Content */}
-      <div className="card border border-gray-100 shadow-sm">
+      <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl">
         {isLoading ? (
-          <div className="text-center py-12 sm:py-16">
-            <div className="animate-spin rounded-full h-10 w-10 sm:h-12 sm:w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
-            <p className="text-sm sm:text-base text-gray-500">Loading report data...</p>
+          <div className="text-center py-12 sm:py-16 p-6">
+            <div className="mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-b-2 border-primary-400" />
+            <p className="text-sm sm:text-base text-white/60">Loading report data...</p>
           </div>
         ) : (
-          <>
+          <div className="p-6">
             {/* Employee Productivity Report */}
             {activeTab === 'productivity' && (
               <div>
-                <h2 className="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6">
+                <h2 className="text-lg sm:text-xl font-semibold text-white mb-4 sm:mb-6">
                   Employee Productivity Report
                 </h2>
                 {productivityData.length > 0 ? (
-                  <div className="overflow-x-auto -mx-6 sm:mx-0">
+                  <div className="overflow-x-auto -mx-6 sm:mx-0 custom-scrollbar-dark">
                     <div className="inline-block min-w-full align-middle">
-                      <table className="min-w-full divide-y divide-gray-200">
-                        <thead className="bg-gray-50">
+                      <table className="min-w-full divide-y divide-white/10">
+                        <thead className="bg-white/5">
                           <tr>
-                            <th className="text-left py-3 px-3 sm:px-4 font-semibold text-gray-700 text-xs sm:text-sm">Employee</th>
-                            <th className="text-right py-3 px-3 sm:px-4 font-semibold text-gray-700 text-xs sm:text-sm">Total Tasks</th>
-                            <th className="text-right py-3 px-3 sm:px-4 font-semibold text-gray-700 text-xs sm:text-sm">Completed</th>
-                            <th className="text-right py-3 px-3 sm:px-4 font-semibold text-gray-700 text-xs sm:text-sm">Completion Rate</th>
-                            <th className="text-right py-3 px-3 sm:px-4 font-semibold text-gray-700 text-xs sm:text-sm">Est. Hours</th>
-                            <th className="text-right py-3 px-3 sm:px-4 font-semibold text-gray-700 text-xs sm:text-sm">Actual Hours</th>
+                            <th className="text-left py-3 px-3 sm:px-4 font-semibold text-white/60 text-xs sm:text-sm">Employee</th>
+                            <th className="text-right py-3 px-3 sm:px-4 font-semibold text-white/60 text-xs sm:text-sm">Total Tasks</th>
+                            <th className="text-right py-3 px-3 sm:px-4 font-semibold text-white/60 text-xs sm:text-sm">Completed</th>
+                            <th className="text-right py-3 px-3 sm:px-4 font-semibold text-white/60 text-xs sm:text-sm">Completion Rate</th>
+                            <th className="text-right py-3 px-3 sm:px-4 font-semibold text-white/60 text-xs sm:text-sm">Est. Hours</th>
+                            <th className="text-right py-3 px-3 sm:px-4 font-semibold text-white/60 text-xs sm:text-sm">Actual Hours</th>
                           </tr>
                         </thead>
-                        <tbody className="bg-white divide-y divide-gray-100">
+                        <tbody className="bg-white/5 divide-y divide-white/5">
                           {productivityData.map((item, index) => (
-                            <tr key={index} className="hover:bg-gray-50 transition-colors">
+                            <tr key={index} className="hover:bg-white/10 transition-colors">
                               <td className="py-3 sm:py-4 px-3 sm:px-4 whitespace-nowrap">
                                 <div className="flex items-center gap-2 sm:gap-3">
-                                  <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-primary-100 to-primary-200 rounded-full flex items-center justify-center flex-shrink-0">
-                                    <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-primary-600" />
+                                  <div className="w-8 h-8 sm:w-10 sm:h-10 bg-primary-500/15 rounded-full flex items-center justify-center flex-shrink-0 ring-1 ring-primary-500/30">
+                                    <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-primary-300" />
                                   </div>
-                                  <span className="font-medium text-gray-900 text-xs sm:text-sm truncate">
+                                  <span className="font-medium text-white text-xs sm:text-sm truncate">
                                     {item.userName || 'Unassigned'}
                                   </span>
                                 </div>
                               </td>
-                              <td className="py-3 sm:py-4 px-3 sm:px-4 text-right text-gray-600 text-xs sm:text-sm whitespace-nowrap">{item.totalTasks || 0}</td>
-                              <td className="py-3 sm:py-4 px-3 sm:px-4 text-right text-gray-600 text-xs sm:text-sm whitespace-nowrap">{item.completedTasks || 0}</td>
+                              <td className="py-3 sm:py-4 px-3 sm:px-4 text-right text-white/70 text-xs sm:text-sm whitespace-nowrap">{item.totalTasks || 0}</td>
+                              <td className="py-3 sm:py-4 px-3 sm:px-4 text-right text-white/70 text-xs sm:text-sm whitespace-nowrap">{item.completedTasks || 0}</td>
                               <td className="py-3 sm:py-4 px-3 sm:px-4 text-right whitespace-nowrap">
-                                <span className="inline-flex items-center px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium bg-green-100 text-green-800">
+                                <span className="inline-flex items-center px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium bg-green-500/15 text-green-300 ring-1 ring-green-500/20">
                                   {item.completionRate?.toFixed(1) || 0}%
                                 </span>
                               </td>
-                              <td className="py-3 sm:py-4 px-3 sm:px-4 text-right text-gray-600 text-xs sm:text-sm whitespace-nowrap">
+                              <td className="py-3 sm:py-4 px-3 sm:px-4 text-right text-white/70 text-xs sm:text-sm whitespace-nowrap">
                                 {item.totalEstimatedHours?.toFixed(1) || 0}h
                               </td>
-                              <td className="py-3 sm:py-4 px-3 sm:px-4 text-right text-gray-600 text-xs sm:text-sm whitespace-nowrap">
+                              <td className="py-3 sm:py-4 px-3 sm:px-4 text-right text-white/70 text-xs sm:text-sm whitespace-nowrap">
                                 {item.totalActualHours?.toFixed(1) || 0}h
                               </td>
                             </tr>
@@ -213,8 +213,8 @@ const Reports = () => {
                   </div>
                 ) : (
                   <div className="text-center py-12 sm:py-16">
-                    <TrendingUp className="w-12 h-12 sm:w-16 sm:h-16 text-gray-400 mx-auto mb-4" />
-                    <p className="text-sm sm:text-base text-gray-500">No productivity data available</p>
+                    <TrendingUp className="w-12 h-12 sm:w-16 sm:h-16 text-white/40 mx-auto mb-4" />
+                    <p className="text-sm sm:text-base text-white/60">No productivity data available</p>
                   </div>
                 )}
               </div>
@@ -223,48 +223,48 @@ const Reports = () => {
             {/* Project Completion Report */}
             {activeTab === 'projects' && (
               <div>
-                <h2 className="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6">
+                <h2 className="text-lg sm:text-xl font-semibold text-white mb-4 sm:mb-6">
                   Project Completion Report
                 </h2>
                 {projectData.length > 0 ? (
                   <div className="space-y-3 sm:space-y-4">
                     {projectData.map((project, index) => (
-                      <div key={index} className="border border-gray-200 rounded-lg p-3 sm:p-4 hover:shadow-md transition-shadow">
+                      <div key={index} className="border border-white/10 rounded-xl p-3 sm:p-4 hover:bg-white/5 transition-shadow bg-white/5">
                         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 mb-3 sm:mb-4">
                           <div className="flex-1 min-w-0">
-                            <h3 className="text-base sm:text-lg font-semibold text-gray-900 truncate">{project.name}</h3>
-                            <p className="text-xs sm:text-sm text-gray-600 mt-1">
-                              Status: <span className="font-medium">{project.status}</span>
+                            <h3 className="text-base sm:text-lg font-semibold text-white truncate">{project.name}</h3>
+                            <p className="text-xs sm:text-sm text-white/60 mt-1">
+                              Status: <span className="font-medium text-white/80">{project.status}</span>
                             </p>
                           </div>
                           <div className="text-left sm:text-right flex-shrink-0">
-                            <div className="text-xl sm:text-2xl font-bold text-primary-600">
+                            <div className="text-xl sm:text-2xl font-bold text-primary-300">
                               {project.completionRate?.toFixed(1) || 0}%
                             </div>
-                            <p className="text-xs sm:text-sm text-gray-600">Completion Rate</p>
+                            <p className="text-xs sm:text-sm text-white/60">Completion Rate</p>
                           </div>
                         </div>
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mt-3 sm:mt-4">
-                          <div className="p-2 sm:p-3 bg-gray-50 rounded-lg">
-                            <p className="text-xs sm:text-sm text-gray-600 mb-1">Total Tasks</p>
-                            <p className="text-base sm:text-lg font-semibold text-gray-900">{project.totalTasks || 0}</p>
+                          <div className="p-2 sm:p-3 bg-white/5 rounded-lg border border-white/10">
+                            <p className="text-xs sm:text-sm text-white/60 mb-1">Total Tasks</p>
+                            <p className="text-base sm:text-lg font-semibold text-white">{project.totalTasks || 0}</p>
                           </div>
-                          <div className="p-2 sm:p-3 bg-gray-50 rounded-lg">
-                            <p className="text-xs sm:text-sm text-gray-600 mb-1">Completed Tasks</p>
-                            <p className="text-base sm:text-lg font-semibold text-green-600">{project.completedTasks || 0}</p>
+                          <div className="p-2 sm:p-3 bg-white/5 rounded-lg border border-white/10">
+                            <p className="text-xs sm:text-sm text-white/60 mb-1">Completed Tasks</p>
+                            <p className="text-base sm:text-lg font-semibold text-green-300">{project.completedTasks || 0}</p>
                           </div>
-                          <div className="p-2 sm:p-3 bg-gray-50 rounded-lg">
-                            <p className="text-xs sm:text-sm text-gray-600 mb-1 sm:mb-2">Progress</p>
-                            <div className="w-full bg-gray-200 rounded-full h-2">
+                          <div className="p-2 sm:p-3 bg-white/5 rounded-lg border border-white/10">
+                            <p className="text-xs sm:text-sm text-white/60 mb-1 sm:mb-2">Progress</p>
+                            <div className="w-full bg-white/10 rounded-full h-2">
                               <div
-                                className="bg-primary-600 h-2 rounded-full transition-all"
+                                className="bg-primary-500 h-2 rounded-full transition-all"
                                 style={{ width: `${project.completionRate || 0}%` }}
                               ></div>
                             </div>
                           </div>
                         </div>
                         {project.startDate && (
-                          <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-gray-200 text-xs sm:text-sm text-gray-600 flex flex-col sm:flex-row gap-1 sm:gap-0">
+                          <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-white/10 text-xs sm:text-sm text-white/60 flex flex-col sm:flex-row gap-1 sm:gap-0">
                             <span>Start: {format(new Date(project.startDate), 'MMM dd, yyyy')}</span>
                             {project.endDate && (
                               <span className="sm:ml-4">
@@ -278,8 +278,8 @@ const Reports = () => {
                   </div>
                 ) : (
                   <div className="text-center py-12 sm:py-16">
-                    <FolderKanban className="w-12 h-12 sm:w-16 sm:h-16 text-gray-400 mx-auto mb-4" />
-                    <p className="text-sm sm:text-base text-gray-500">No project data available</p>
+                    <FolderKanban className="w-12 h-12 sm:w-16 sm:h-16 text-white/40 mx-auto mb-4" />
+                    <p className="text-sm sm:text-base text-white/60">No project data available</p>
                   </div>
                 )}
               </div>
@@ -288,40 +288,40 @@ const Reports = () => {
             {/* Time Tracking Report */}
             {activeTab === 'time' && (
               <div>
-                <h2 className="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6">
+                <h2 className="text-lg sm:text-xl font-semibold text-white mb-4 sm:mb-6">
                   Time Tracking Summary
                 </h2>
                 {timeTrackingData.length > 0 ? (
-                  <div className="overflow-x-auto -mx-6 sm:mx-0">
+                  <div className="overflow-x-auto -mx-6 sm:mx-0 custom-scrollbar-dark">
                     <div className="inline-block min-w-full align-middle">
-                      <table className="min-w-full divide-y divide-gray-200">
-                        <thead className="bg-gray-50">
+                      <table className="min-w-full divide-y divide-white/10">
+                        <thead className="bg-white/5">
                           <tr>
-                            <th className="text-left py-3 px-3 sm:px-4 font-semibold text-gray-700 text-xs sm:text-sm">Project</th>
-                            <th className="text-left py-3 px-3 sm:px-4 font-semibold text-gray-700 text-xs sm:text-sm">Employee</th>
-                            <th className="text-right py-3 px-3 sm:px-4 font-semibold text-gray-700 text-xs sm:text-sm">Tasks</th>
-                            <th className="text-right py-3 px-3 sm:px-4 font-semibold text-gray-700 text-xs sm:text-sm">Est. Hours</th>
-                            <th className="text-right py-3 px-3 sm:px-4 font-semibold text-gray-700 text-xs sm:text-sm">Actual Hours</th>
-                            <th className="text-right py-3 px-3 sm:px-4 font-semibold text-gray-700 text-xs sm:text-sm">Variance</th>
+                            <th className="text-left py-3 px-3 sm:px-4 font-semibold text-white/60 text-xs sm:text-sm">Project</th>
+                            <th className="text-left py-3 px-3 sm:px-4 font-semibold text-white/60 text-xs sm:text-sm">Employee</th>
+                            <th className="text-right py-3 px-3 sm:px-4 font-semibold text-white/60 text-xs sm:text-sm">Tasks</th>
+                            <th className="text-right py-3 px-3 sm:px-4 font-semibold text-white/60 text-xs sm:text-sm">Est. Hours</th>
+                            <th className="text-right py-3 px-3 sm:px-4 font-semibold text-white/60 text-xs sm:text-sm">Actual Hours</th>
+                            <th className="text-right py-3 px-3 sm:px-4 font-semibold text-white/60 text-xs sm:text-sm">Variance</th>
                           </tr>
                         </thead>
-                        <tbody className="bg-white divide-y divide-gray-100">
+                        <tbody className="bg-white/5 divide-y divide-white/5">
                           {timeTrackingData.map((item, index) => {
                             const variance = item.variance || 0;
-                            const varianceColor = variance > 0 ? 'text-red-600' : variance < 0 ? 'text-green-600' : 'text-gray-600';
+                            const varianceColor = variance > 0 ? 'text-red-300' : variance < 0 ? 'text-green-300' : 'text-white/70';
                             return (
-                              <tr key={index} className="hover:bg-gray-50 transition-colors">
-                                <td className="py-3 sm:py-4 px-3 sm:px-4 font-medium text-gray-900 text-xs sm:text-sm whitespace-nowrap">
+                              <tr key={index} className="hover:bg-white/10 transition-colors">
+                                <td className="py-3 sm:py-4 px-3 sm:px-4 font-medium text-white text-xs sm:text-sm whitespace-nowrap">
                                   {item.projectName || 'N/A'}
                                 </td>
-                                <td className="py-3 sm:py-4 px-3 sm:px-4 text-gray-600 text-xs sm:text-sm whitespace-nowrap">
+                                <td className="py-3 sm:py-4 px-3 sm:px-4 text-white/70 text-xs sm:text-sm whitespace-nowrap">
                                   {item.assigneeName || 'Unassigned'}
                                 </td>
-                                <td className="py-3 sm:py-4 px-3 sm:px-4 text-right text-gray-600 text-xs sm:text-sm whitespace-nowrap">{item.taskCount || 0}</td>
-                                <td className="py-3 sm:py-4 px-3 sm:px-4 text-right text-gray-600 text-xs sm:text-sm whitespace-nowrap">
+                                <td className="py-3 sm:py-4 px-3 sm:px-4 text-right text-white/70 text-xs sm:text-sm whitespace-nowrap">{item.taskCount || 0}</td>
+                                <td className="py-3 sm:py-4 px-3 sm:px-4 text-right text-white/70 text-xs sm:text-sm whitespace-nowrap">
                                   {item.totalEstimatedHours?.toFixed(1) || 0}h
                                 </td>
-                                <td className="py-3 sm:py-4 px-3 sm:px-4 text-right text-gray-600 text-xs sm:text-sm whitespace-nowrap">
+                                <td className="py-3 sm:py-4 px-3 sm:px-4 text-right text-white/70 text-xs sm:text-sm whitespace-nowrap">
                                   {item.totalActualHours?.toFixed(1) || 0}h
                                 </td>
                                 <td className={`py-3 sm:py-4 px-3 sm:px-4 text-right font-medium text-xs sm:text-sm whitespace-nowrap ${varianceColor}`}>
@@ -336,13 +336,13 @@ const Reports = () => {
                   </div>
                 ) : (
                   <div className="text-center py-12 sm:py-16">
-                    <Clock className="w-12 h-12 sm:w-16 sm:h-16 text-gray-400 mx-auto mb-4" />
-                    <p className="text-sm sm:text-base text-gray-500">No time tracking data available</p>
+                    <Clock className="w-12 h-12 sm:w-16 sm:h-16 text-white/40 mx-auto mb-4" />
+                    <p className="text-sm sm:text-base text-white/60">No time tracking data available</p>
                   </div>
                 )}
               </div>
             )}
-          </>
+          </div>
         )}
       </div>
     </div>

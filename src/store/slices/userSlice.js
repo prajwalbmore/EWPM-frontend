@@ -77,6 +77,45 @@ export const deleteUser = createAsyncThunk(
   }
 );
 
+// Profile thunks
+export const getCurrentUserProfile = createAsyncThunk(
+  'users/getCurrentUserProfile',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await userAPI.getCurrentUserProfile();
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || 'Failed to fetch profile');
+    }
+  }
+);
+
+export const updateCurrentUserProfile = createAsyncThunk(
+  'users/updateCurrentUserProfile',
+  async (profileData, { rejectWithValue }) => {
+    try {
+      const response = await userAPI.updateCurrentUserProfile(profileData);
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || 'Failed to update profile';
+      return rejectWithValue(message);
+    }
+  }
+);
+
+export const changePassword = createAsyncThunk(
+  'users/changePassword',
+  async (passwordData, { rejectWithValue }) => {
+    try {
+      const response = await userAPI.changePassword(passwordData);
+      return response.data;
+    } catch (error) {
+      const message = error.response?.data?.message || 'Failed to change password';
+      return rejectWithValue(message);
+    }
+  }
+);
+
 // Initial state
 const initialState = {
   users: [],
@@ -145,6 +184,18 @@ const userSlice = createSlice({
         if (state.currentUser?._id === action.payload) {
           state.currentUser = null;
         }
+      })
+      // Get current user profile
+      .addCase(getCurrentUserProfile.fulfilled, (state, action) => {
+        state.currentUser = action.payload;
+      })
+      // Update current user profile
+      .addCase(updateCurrentUserProfile.fulfilled, (state, action) => {
+        state.currentUser = action.payload;
+      })
+      // Change password
+      .addCase(changePassword.fulfilled, (state, action) => {
+        // Password changed successfully, no state update needed
       });
   },
 });

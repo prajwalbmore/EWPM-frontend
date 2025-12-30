@@ -30,5 +30,21 @@ export const userAPI = {
     const response = await api.put(`/users/${id}/role`, { role });
     return response.data;
   },
+
+  // Profile methods
+  getCurrentUserProfile: async () => {
+    const response = await api.get('/users/profile/me');
+    return response.data;
+  },
+
+  updateCurrentUserProfile: async (profileData) => {
+    const response = await api.put('/users/profile/me', profileData);
+    return response.data;
+  },
+
+  changePassword: async (passwordData) => {
+    const response = await api.put('/users/profile/change-password', passwordData);
+    return response.data;
+  },
 };
 
